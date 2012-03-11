@@ -1,0 +1,30 @@
+<h2><%= @article.title %></h2><br/>
+Posted on <%= @article.created_at.to_s(:dateformat) %> | <%= @article.comments.count %> comments
+<p><%= @article.content.html_safe %></p>
+
+<% if current_user && current_user.admin? %>
+<%= link_to 'Edit', edit_article_path(@article) %> |<% end %>
+<%= link_to 'Back', articles_path %>
+
+<h3>Comments</h3>
+<% @comments.each do |comment|%>
+<p><b><%= comment.user.email %></b> (<%=time_ago_in_words(comment.created_at)%> ago)
+<% if current_user && current_user.admin? %> 
+ | <%= link_to 'Delete', comment, confirm: 'Are you sure?', method: :delete %><% end %>
+<br/>
+> <%= comment.content %>
+</p>
+<% end %>
+
+<% if current_user %>
+Add a comment as <%= current_user.email %>
+	<%= form_for [@article, current_user.comments.new] do |f| %>
+             <%= f.text_area :content, :size => "50x5" %><br/>
+             <%= f.submit "Add Comment" %>
+			<% end %>
+<% else %>
+
+Please <%= link_to "log in", login_path %> or <%= link_to "sign up", signup_path %> before posting a comment.
+<% end %>
+
+

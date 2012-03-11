@@ -1,0 +1,17 @@
+<h1><%= @title %></h1>
+<% @users.each do |user|%>
+
+	<% if user.admin? %>
+	<div style="color:red;">	
+	<% end %>
+	
+	<%= user.email %>
+	<% unless current_user == user %> | <%= link_to 'Delete this user', user, confirm: 'Are you sure?', method: :delete %><%end%>
+	
+	<br/>
+	
+	<% if user.admin? %>
+</div>
+	<% end %>
+	
+<% end %>

@@ -1,0 +1,5 @@
+<h1><%= @title %></h1>
+<p>Welcome on my website ! Made with Ruby on Rails</p>
+<% if current_user.nil? %>
+ <p><br/><center><%= link_to "Sign up !", signup_path, :class => "button2 large green" %></center></p>
+<% end %>
