@@ -3,6 +3,10 @@ Website::Application.routes.draw do
 
 
 
+  get "contact/new"
+
+  get "contact/action"
+
   get "comments/new"
 
   resources :articles do
@@ -17,7 +21,8 @@ Website::Application.routes.draw do
     match '/login', :to => 'sessions#new'
      match '/logout', :to => 'sessions#destroy'
    match '/news', :to => 'articles#index'
-   match '/contact', :to => 'pages#contact'
+   match '/contact', :to => 'contact#new', :as => 'contact', :via => :get
+   match '/contact', :to => 'contact#create', :as => 'contact', :via => :post
 
    root :to => 'pages#index'
 
